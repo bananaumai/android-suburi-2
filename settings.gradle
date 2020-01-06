@@ -1,2 +1,2 @@
-include ':app'
-rootProject.name='Hello Android Suburi 2'
+include ':app', ':avocado-sample', ':avocado-lib'
+rootProject.name='AndroidSuburi2'
