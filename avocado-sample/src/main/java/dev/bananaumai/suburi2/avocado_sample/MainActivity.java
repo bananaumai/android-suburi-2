@@ -8,9 +8,14 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ConcurrentModificationException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import dev.bananaumai.suburi2.avocado.Avocado;
 
@@ -29,6 +34,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Avocado color : " + Avocado.Companion.getColor(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Avocado avocado = new Avocado();
+
+                try {
+                    avocado.doSomethingAsync();
+                    Log.i("Avocado", "call avocado.doSomethingAsync()");
+                    CompletableFuture<String> f = avocado.doSomethingAsyncCompletable();
+                    Log.i("Avocado", "call avocado.doSomethingAsyncCompletable()");
+                    String result = f.get();
+                    Log.i("Avocado", result);
+                    Snackbar.make(view, result, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                } catch (ExecutionException | InterruptedException e) {
+                    Log.e("Activity", "error", e);
+                }
             }
         });
     }
