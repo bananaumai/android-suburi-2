@@ -1,2 +1,3 @@
+include ':accel-viewer'
 include ':hello', ':avocado-sample', ':avocado-lib', ':singleton-sample', ':shared-pref'
 rootProject.name='AndroidSuburi2'
